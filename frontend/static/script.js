@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let ultimaCertificacion = null;
 
-    // ✅ URL de tu backend en Railway (¡sin espacios!)
+    // ✅ URL exacta de tu backend en Railway (¡sin espacios al final!)
     const BACKEND_URL = 'https://certifier-backend.up.railway.app';
 
     // Modal de verificación
@@ -55,7 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'POST',
             body: formData
         })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        })
         .then(data => {
             if (data.success) {
                 ultimaCertificacion = data.certificacion;
@@ -102,7 +107,10 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'POST',
             body: formData
         })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            return res.json();
+        })
         .then(data => {
             if (data.success) {
                 const estado = data.integro ? '✅ INTEGRIDAD VERIFICADA' : '❌ INTEGRIDAD COMPROMETIDA';
@@ -137,10 +145,8 @@ Hash actual:    ${data.hash_actual}
             body: JSON.stringify({ certificacion: ultimaCertificacion })
         })
         .then(response => {
-            if (response.ok) {
-                return response.blob();
-            }
-            throw new Error('Error al guardar el certificado');
+            if (!response.ok) throw new Error('Error al guardar el certificado');
+            return response.blob();
         })
         .then(blob => {
             const url = window.URL.createObjectURL(blob);
