@@ -7,34 +7,34 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-# ✅ Configuración de CORS para permitir solicitudes desde tu dominio
+# ✅ CORS configurado EXACTAMENTE para tu dominio (¡sin espacios!)
 CORS(app, origins=["https://testrobert.work.gd"])
 
 @app.route('/')
 def home():
     return jsonify({
-        "mensaje": "Certificador de Archivos - Backend Activo",
-        "status": "ok"
+        "status": "ok",
+        "mensaje": "Backend activo y listo para certificar"
     })
 
 @app.route('/api/certificar', methods=['POST'])
 def certificar():
     if 'archivo' not in request.files:
-        return jsonify({'error': 'No se envió ningún archivo'}), 400
+        return jsonify({"error": "No se envió ningún archivo"}), 400
     
     archivo = request.files['archivo']
     propietario = request.form.get('propietario', 'Usuario').strip() or 'Usuario'
     
     if archivo.filename == '':
-        return jsonify({'error': 'Archivo sin nombre'}), 400
+        return jsonify({"error": "Archivo sin nombre"}), 400
 
     try:
-        # Leer tamaño del archivo
+        # Leer tamaño
         archivo.seek(0, os.SEEK_END)
         tamanio = archivo.tell()
         archivo.seek(0)
 
-        # Generar hashes
+        # Función para generar hash
         def generar_hash(f, algo='sha256'):
             h = hashlib.new(algo)
             f.seek(0)
@@ -43,13 +43,14 @@ def certificar():
             f.seek(0)
             return h.hexdigest()
 
+        # Generar hashes
         hashes = {
             'sha256': generar_hash(archivo, 'sha256'),
             'sha1': generar_hash(archivo, 'sha1'),
             'md5': generar_hash(archivo, 'md5')
         }
 
-        certificacion = {
+        resultado = {
             "nombre_archivo": archivo.filename,
             "propietario": propietario,
             "fecha_certificacion": datetime.utcnow().isoformat() + "Z",
@@ -60,12 +61,13 @@ def certificar():
 
         return jsonify({
             "success": True,
-            "certificacion": certificacion
+            "certificacion": resultado
         })
 
     except Exception as e:
-        return jsonify({'error': f'Error al procesar: {str(e)}'}), 500
+        return jsonify({"error": f"Error interno: {str(e)}"}), 500
 
+# Puerto dinámico para Railway
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)
