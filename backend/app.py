@@ -8,7 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 # ✅ CORS configurado EXACTAMENTE para tu dominio (¡sin espacios!)
-const BACKEND_URL = 'https://certifier-backend.onrender.com';
+CORS(app, origins=["https://testrobert.work.gd"])
 
 @app.route('/')
 def home():
