@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('archivo', archivo);
         formData.append('propietario', propietario);
 
-        fetch(`${BACKEND_URL}/api/certificar`, {
+        fetch('https://certifier-backend.onrender.com/api/certificar', {
             method: 'POST',
             body: formData
         })
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('archivo', archivo);
         formData.append('hash_original', hashOriginal);
 
-        fetch(`${BACKEND_URL}/api/verificar`, {
+       fetch('https://certifier-backend.onrender.com/api/verificar', {
             method: 'POST',
             body: formData
         })
