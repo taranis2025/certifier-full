@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ✅ URL exacta de tu backend en Render (¡sin espacios al final!)
     const BACKEND_URL = 'https://certifier-backend.onrender.com';
-
     // Modal de verificación
     const modal = document.getElementById('modal-verificar');
     const span = document.getElementsByClassName('close')[0];
