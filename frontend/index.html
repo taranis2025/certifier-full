@@ -3,48 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔐 Certificador de Archivos</title>
-    <link rel="stylesheet" href="static/style.css">
+    <title>🔐 Certificador Local</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>🔐 Certificador de Archivos</h1>
-        <p>Sistema seguro para certificar y verificar la integridad de tus archivos</p>
-
-        <!-- Selección de archivo -->
+        <h1>🔐 Certificador de Archivos </h1>
+        
         <div class="card">
-            <label for="archivo">Archivo a certificar/verificar:</label>
-            <input type="file" id="archivo" accept="*/*">
+            <label for="archivo">Selecciona un archivo:</label>
+            <input type="file" id="archivo">
         </div>
 
-        <!-- Propietario -->
         <div class="card">
             <label for="propietario">Propietario:</label>
             <input type="text" id="propietario" value="Usuario">
         </div>
 
-        <!-- Botones -->
         <div class="button-group">
-            <button id="btn-certificar">📄 Certificar Archivo</button>
-            <button id="btn-verificar">🔍 Verificar Integridad</button>
-            <button id="btn-guardar">💾 Guardar Certificación</button>
+            <button id="btn-certificar">📄 Certificar</button>
+            <button id="btn-guardar">💾 Guardar Certificado</button>
         </div>
 
-        <!-- Resultados -->
         <div class="results" id="resultados"></div>
-
-        <!-- Modal de verificación -->
-        <div id="modal-verificar" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h3>Verificar Integridad</h3>
-                <p>Ingresa el hash SHA-256 original:</p>
-                <input type="text" id="hash-original" placeholder="Ej: a1b2c3...">
-                <button id="btn-verificar-submit">Verificar</button>
-            </div>
-        </div>
     </div>
 
-    <script src="static/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
