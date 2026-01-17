@@ -1,4 +1,4 @@
-const BACKEND_URL = 'https://certifier-backend.onrender.com';
+const BACKEND_URL = 'https://certifier-full.onrender.com';
 
 document.addEventListener('DOMContentLoaded', () => {
     const archivoInput = document.getElementById('archivo');
